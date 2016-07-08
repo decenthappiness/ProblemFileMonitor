@@ -14,8 +14,8 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "mainTabPane"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-					"$columnSpecs": "default, 109dlu, default, 47dlu, 75dlu, default, 279dlu, default, default, default, default"
-					"$rowSpecs": "default, default, default, default, default, default, default, 65dlu, default, default, default, 15dlu, default, default, default, default, default"
+					"$columnSpecs": "unrelgap, 109dlu, default, 47dlu, 26dlu, unrelgap, 318dlu, unrelgap, growbutton, unrelgap, growbutton"
+					"$rowSpecs": "default, default, pargap, default, relgap, fill:max(default;60px):grow, default, default, relgap, fill:max(default;60px):grow, linegap, default"
 				} ) {
 					name: "scanSettingsPanel"
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
@@ -24,8 +24,8 @@ new FormModel {
 					} ) {
 						name: "searchParameterPanel"
 						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "LookForLabel1"
-							"text": new FormMessage( null, "MainForm.LookForLabel1.text" )
+							name: "lookForLabel1"
+							"text": new FormMessage( null, "MainForm.lookForLabel1.text" )
 						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 							"gridX": 2
 							"gridY": 2
@@ -156,61 +156,131 @@ new FormModel {
 						"gridX": 2
 						"gridY": 2
 						"gridWidth": 4
-						"gridHeight": 7
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-						"$columnSpecs": "default, default, default, default, default, default, default, default, default, default"
-						"$rowSpecs": "default, default, default, default, default, default, default, default, default, default, default"
+						"$columnSpecs": "unrelgap, default, relgap, 41dlu, relgap, default, relgap, default, unrelgap, unrelgap"
+						"$rowSpecs": "pargap, default, pargap, default, pargap, default, pargap, default, pargap, default, unrelgap"
 					} ) {
 						name: "programSettingsPanel"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "programSettingsLabel"
+							"text": new FormMessage( null, "MainForm.programSettingsLabel.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "repeatScanCheckBox"
+							"text": new FormMessage( null, "MainForm.repeatScanCheckBox.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "scanPeriodComboBox"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Hourly"
+								addElement( "Hourly" )
+								addElement( "Odd hours" )
+								addElement( "Daily" )
+								addElement( "Odd days" )
+								addElement( "Weekly" )
+							}
+							"selectedIndex": 2
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 4
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "atLabel"
+							"text": new FormMessage( null, "MainForm.atLabel.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 6
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "scanTimeComboBox"
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 8
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "minimizeToSystemTrayCheckBox"
+							"text": new FormMessage( null, "MainForm.minimizeToSystemTrayCheckBox.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "fileFoundPopupNotificationCheckBox"
+							"text": new FormMessage( null, "MainForm.fileFoundPopupNotificationCheckBox.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 8
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "keepNotificationsOpenUntilCloseClickedCheckBox"
+							"text": new FormMessage( null, "MainForm.keepNotificationsOpenUntilCloseClickedCheckBox.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 10
+						} )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 7
 						"gridY": 2
-						"gridHeight": 7
 					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "runScanButton"
-						"text": new FormMessage( null, "MainForm.runScanButton.text" )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+						"$columnSpecs": "default, default, default"
+						"$rowSpecs": "default, default, unrelgap, default, unrelgap, default, default"
+					} ) {
+						name: "panel1"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "runScanButton"
+							"text": new FormMessage( null, "MainForm.runScanButton.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 2
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "saveDefaultSettingsButton"
+							"text": new FormMessage( null, "MainForm.saveDefaultSettingsButton.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 4
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "helpButton"
+							"text": new FormMessage( null, "MainForm.helpButton.text" )
+						}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+							"gridX": 2
+							"gridY": 6
+						} )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 9
-						"gridY": 3
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "saveDefaultSettingsButton"
-						"text": new FormMessage( null, "MainForm.saveDefaultSettingsButton.text" )
-					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-						"gridX": 9
-						"gridY": 5
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "helpButton"
-						"text": new FormMessage( null, "MainForm.helpButton.text" )
-					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-						"gridX": 9
-						"gridY": 7
+						"gridY": 2
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "rootDirectoriesLabel"
 						"text": new FormMessage( null, "MainForm.rootDirectoriesLabel.text" )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 2
-						"gridY": 10
+						"gridY": 4
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addRootDirectoriesButton"
 						"text": new FormMessage( null, "MainForm.addRootDirectoriesButton.text" )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 4
-						"gridY": 10
+						"gridY": 4
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "rootDirectoriesScrollPane"
 						add( new FormComponent( "javax.swing.JTextPane" ) {
-							name: "rootDirectoriesTextPanel"
+							name: "rootDirectoriesTextPane"
 						} )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 2
-						"gridY": 12
+						"gridY": 6
 						"gridWidth": 9
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
@@ -218,33 +288,70 @@ new FormModel {
 						"text": new FormMessage( null, "MainForm.ignoreDirectoriesLabel.text" )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 2
-						"gridY": 14
+						"gridY": 8
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addIgnoreDirectoriesButton1"
 						"text": new FormMessage( null, "MainForm.addIgnoreDirectoriesButton1.text" )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 4
-						"gridY": 14
+						"gridY": 8
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPane1"
+						name: "ignoreDirectoriesScrollPane"
 						add( new FormComponent( "javax.swing.JTextPane" ) {
-							name: "textPane1"
+							name: "ignoreDirectoriesTextPane"
 						} )
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridY": 10
 						"gridX": 2
-						"gridY": 16
 						"gridWidth": 9
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": new FormMessage( null, "MainForm.scanSettingsPanel.tab.title" )
 				} )
-			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-				"gridX": 1
-			} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
+					"$columnSpecs": "unrelgap, default, (50dlu<default<200dlu), default, default, default, default, default, default"
+					"$rowSpecs": "default, default, default, default, default"
+				} ) {
+					name: "resultsPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "resultsLabel"
+						"text": new FormMessage( null, "MainForm.resultsLabel.text" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "openParentDirectoryCheckBox1"
+						"text": new FormMessage( null, "MainForm.openParentDirectoryCheckBox1.text" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 4
+						"gridY": 2
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "clearResultsButton1"
+						"text": new FormMessage( null, "MainForm.clearResultsButton1.text" )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 6
+						"gridY": 2
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "resultsScrollPane"
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "resultsTextPane"
+						} )
+					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+						"gridX": 2
+						"gridY": 4
+						"gridWidth": 6
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": new FormMessage( null, "MainForm.resultsPanel.tab.title" )
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
+			"location": new java.awt.Point( 50, 0 )
 			"size": new java.awt.Dimension( 1025, 690 )
 		} )
 	}

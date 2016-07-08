@@ -17,7 +17,7 @@ public class MainPanel extends JPanel {
 		mainTabPane = new JTabbedPane();
 		scanSettingsPanel = new JPanel();
 		searchParameterPanel = new JPanel();
-		LookForLabel1 = new JLabel();
+		lookForLabel1 = new JLabel();
 		longFilePathsCheckBox = new JCheckBox();
 		longFilePathsGElabel = new JLabel();
 		longFilePathsCharacterThresholdTextField = new JTextField();
@@ -35,17 +35,32 @@ public class MainPanel extends JPanel {
 		clumpsOfSmallFilesClumpSizeThresholdTextField = new JTextField();
 		clumpsOfSmallFilesSmallFilesLabel = new JLabel();
 		programSettingsPanel = new JPanel();
+		programSettingsLabel = new JLabel();
+		repeatScanCheckBox = new JCheckBox();
+		scanPeriodComboBox = new JComboBox<>();
+		atLabel = new JLabel();
+		scanTimeComboBox = new JComboBox();
+		minimizeToSystemTrayCheckBox = new JCheckBox();
+		fileFoundPopupNotificationCheckBox = new JCheckBox();
+		keepNotificationsOpenUntilCloseClickedCheckBox = new JCheckBox();
+		panel1 = new JPanel();
 		runScanButton = new JButton();
 		saveDefaultSettingsButton = new JButton();
 		helpButton = new JButton();
 		rootDirectoriesLabel = new JLabel();
 		addRootDirectoriesButton = new JButton();
 		rootDirectoriesScrollPane = new JScrollPane();
-		rootDirectoriesTextPanel = new JTextPane();
+		rootDirectoriesTextPane = new JTextPane();
 		ignoreDirectoriesLabel = new JLabel();
 		addIgnoreDirectoriesButton1 = new JButton();
-		scrollPane1 = new JScrollPane();
-		textPane1 = new JTextPane();
+		ignoreDirectoriesScrollPane = new JScrollPane();
+		ignoreDirectoriesTextPane = new JTextPane();
+		resultsPanel = new JPanel();
+		resultsLabel = new JLabel();
+		openParentDirectoryCheckBox1 = new JCheckBox();
+		clearResultsButton1 = new JButton();
+		resultsScrollPane = new JScrollPane();
+		resultsTextPane = new JTextPane();
 
 		//======== this ========
 		setLayout(new FormLayout(
@@ -58,8 +73,8 @@ public class MainPanel extends JPanel {
 			//======== scanSettingsPanel ========
 			{
 				scanSettingsPanel.setLayout(new FormLayout(
-					"default, 109dlu, default, 47dlu, 75dlu, default, 279dlu, 4*(default)",
-					"7*(default), 65dlu, 3*(default), 15dlu, 5*(default)"));
+					"$ugap, 109dlu, default, 47dlu, 26dlu, $ugap, 318dlu, 2*($ugap, ${growing-button})",
+					"2*(default), $pgap, default, $rgap, fill:[60px,default]:grow, 2*(default), $rgap, fill:[60px,default]:grow, $lgap, default"));
 
 				//======== searchParameterPanel ========
 				{
@@ -67,9 +82,9 @@ public class MainPanel extends JPanel {
 						"$ugap, 2*(pref), $rgap, 40dlu, $rgap, pref, $ugap",
 						"5*($pgap, default), $pgap"));
 
-					//---- LookForLabel1 ----
-					LookForLabel1.setText(bundle.getString("MainForm.LookForLabel1.text"));
-					searchParameterPanel.add(LookForLabel1, CC.xy(2, 2));
+					//---- lookForLabel1 ----
+					lookForLabel1.setText(bundle.getString("MainForm.lookForLabel1.text"));
+					searchParameterPanel.add(lookForLabel1, CC.xy(2, 2));
 
 					//---- longFilePathsCheckBox ----
 					longFilePathsCheckBox.setText(bundle.getString("MainForm.longFilePathsCheckBox.text"));
@@ -135,57 +150,127 @@ public class MainPanel extends JPanel {
 					clumpsOfSmallFilesSmallFilesLabel.setText(bundle.getString("MainForm.clumpsOfSmallFilesSmallFilesLabel.text"));
 					searchParameterPanel.add(clumpsOfSmallFilesSmallFilesLabel, CC.xy(7, 10));
 				}
-				scanSettingsPanel.add(searchParameterPanel, CC.xywh(2, 2, 4, 7));
+				scanSettingsPanel.add(searchParameterPanel, CC.xywh(2, 2, 4, 1));
 
 				//======== programSettingsPanel ========
 				{
 					programSettingsPanel.setLayout(new FormLayout(
-						"10*(default)",
-						"11*(default)"));
+						"$ugap, default, $rgap, 41dlu, 2*($rgap, default), 2*($ugap)",
+						"5*($pgap, default), $ugap"));
+
+					//---- programSettingsLabel ----
+					programSettingsLabel.setText(bundle.getString("MainForm.programSettingsLabel.text"));
+					programSettingsPanel.add(programSettingsLabel, CC.xy(2, 2));
+
+					//---- repeatScanCheckBox ----
+					repeatScanCheckBox.setText(bundle.getString("MainForm.repeatScanCheckBox.text"));
+					programSettingsPanel.add(repeatScanCheckBox, CC.xy(2, 4));
+
+					//---- scanPeriodComboBox ----
+					scanPeriodComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+						"Hourly",
+						"Odd hours",
+						"Daily",
+						"Odd days",
+						"Weekly"
+					}));
+					scanPeriodComboBox.setSelectedIndex(2);
+					programSettingsPanel.add(scanPeriodComboBox, CC.xy(4, 4));
+
+					//---- atLabel ----
+					atLabel.setText(bundle.getString("MainForm.atLabel.text"));
+					programSettingsPanel.add(atLabel, CC.xy(6, 4));
+					programSettingsPanel.add(scanTimeComboBox, CC.xy(8, 4));
+
+					//---- minimizeToSystemTrayCheckBox ----
+					minimizeToSystemTrayCheckBox.setText(bundle.getString("MainForm.minimizeToSystemTrayCheckBox.text"));
+					programSettingsPanel.add(minimizeToSystemTrayCheckBox, CC.xy(2, 6));
+
+					//---- fileFoundPopupNotificationCheckBox ----
+					fileFoundPopupNotificationCheckBox.setText(bundle.getString("MainForm.fileFoundPopupNotificationCheckBox.text"));
+					programSettingsPanel.add(fileFoundPopupNotificationCheckBox, CC.xy(2, 8));
+
+					//---- keepNotificationsOpenUntilCloseClickedCheckBox ----
+					keepNotificationsOpenUntilCloseClickedCheckBox.setText(bundle.getString("MainForm.keepNotificationsOpenUntilCloseClickedCheckBox.text"));
+					programSettingsPanel.add(keepNotificationsOpenUntilCloseClickedCheckBox, CC.xy(2, 10));
 				}
-				scanSettingsPanel.add(programSettingsPanel, CC.xywh(7, 2, 1, 7));
+				scanSettingsPanel.add(programSettingsPanel, CC.xy(7, 2));
 
-				//---- runScanButton ----
-				runScanButton.setText(bundle.getString("MainForm.runScanButton.text"));
-				scanSettingsPanel.add(runScanButton, CC.xy(9, 3));
+				//======== panel1 ========
+				{
+					panel1.setLayout(new FormLayout(
+						"3*(default)",
+						"2*(default), 2*($ugap, default), default"));
 
-				//---- saveDefaultSettingsButton ----
-				saveDefaultSettingsButton.setText(bundle.getString("MainForm.saveDefaultSettingsButton.text"));
-				scanSettingsPanel.add(saveDefaultSettingsButton, CC.xy(9, 5));
+					//---- runScanButton ----
+					runScanButton.setText(bundle.getString("MainForm.runScanButton.text"));
+					panel1.add(runScanButton, CC.xy(2, 2));
 
-				//---- helpButton ----
-				helpButton.setText(bundle.getString("MainForm.helpButton.text"));
-				scanSettingsPanel.add(helpButton, CC.xy(9, 7));
+					//---- saveDefaultSettingsButton ----
+					saveDefaultSettingsButton.setText(bundle.getString("MainForm.saveDefaultSettingsButton.text"));
+					panel1.add(saveDefaultSettingsButton, CC.xy(2, 4));
+
+					//---- helpButton ----
+					helpButton.setText(bundle.getString("MainForm.helpButton.text"));
+					panel1.add(helpButton, CC.xy(2, 6));
+				}
+				scanSettingsPanel.add(panel1, CC.xy(9, 2));
 
 				//---- rootDirectoriesLabel ----
 				rootDirectoriesLabel.setText(bundle.getString("MainForm.rootDirectoriesLabel.text"));
-				scanSettingsPanel.add(rootDirectoriesLabel, CC.xy(2, 10));
+				scanSettingsPanel.add(rootDirectoriesLabel, CC.xy(2, 4));
 
 				//---- addRootDirectoriesButton ----
 				addRootDirectoriesButton.setText(bundle.getString("MainForm.addRootDirectoriesButton.text"));
-				scanSettingsPanel.add(addRootDirectoriesButton, CC.xy(4, 10));
+				scanSettingsPanel.add(addRootDirectoriesButton, CC.xy(4, 4));
 
 				//======== rootDirectoriesScrollPane ========
 				{
-					rootDirectoriesScrollPane.setViewportView(rootDirectoriesTextPanel);
+					rootDirectoriesScrollPane.setViewportView(rootDirectoriesTextPane);
 				}
-				scanSettingsPanel.add(rootDirectoriesScrollPane, CC.xywh(2, 12, 9, 1));
+				scanSettingsPanel.add(rootDirectoriesScrollPane, CC.xywh(2, 6, 9, 1));
 
 				//---- ignoreDirectoriesLabel ----
 				ignoreDirectoriesLabel.setText(bundle.getString("MainForm.ignoreDirectoriesLabel.text"));
-				scanSettingsPanel.add(ignoreDirectoriesLabel, CC.xy(2, 14));
+				scanSettingsPanel.add(ignoreDirectoriesLabel, CC.xy(2, 8));
 
 				//---- addIgnoreDirectoriesButton1 ----
 				addIgnoreDirectoriesButton1.setText(bundle.getString("MainForm.addIgnoreDirectoriesButton1.text"));
-				scanSettingsPanel.add(addIgnoreDirectoriesButton1, CC.xy(4, 14));
+				scanSettingsPanel.add(addIgnoreDirectoriesButton1, CC.xy(4, 8));
 
-				//======== scrollPane1 ========
+				//======== ignoreDirectoriesScrollPane ========
 				{
-					scrollPane1.setViewportView(textPane1);
+					ignoreDirectoriesScrollPane.setViewportView(ignoreDirectoriesTextPane);
 				}
-				scanSettingsPanel.add(scrollPane1, CC.xywh(2, 16, 9, 1));
+				scanSettingsPanel.add(ignoreDirectoriesScrollPane, CC.xywh(2, 10, 9, 1));
 			}
 			mainTabPane.addTab(bundle.getString("MainForm.scanSettingsPanel.tab.title"), scanSettingsPanel);
+
+			//======== resultsPanel ========
+			{
+				resultsPanel.setLayout(new FormLayout(
+					"$ugap, default, [50dlu,default,200dlu], 6*(default)",
+					"5*(default)"));
+
+				//---- resultsLabel ----
+				resultsLabel.setText(bundle.getString("MainForm.resultsLabel.text"));
+				resultsPanel.add(resultsLabel, CC.xy(2, 2));
+
+				//---- openParentDirectoryCheckBox1 ----
+				openParentDirectoryCheckBox1.setText(bundle.getString("MainForm.openParentDirectoryCheckBox1.text"));
+				resultsPanel.add(openParentDirectoryCheckBox1, CC.xy(4, 2));
+
+				//---- clearResultsButton1 ----
+				clearResultsButton1.setText(bundle.getString("MainForm.clearResultsButton1.text"));
+				resultsPanel.add(clearResultsButton1, CC.xy(6, 2));
+
+				//======== resultsScrollPane ========
+				{
+					resultsScrollPane.setViewportView(resultsTextPane);
+				}
+				resultsPanel.add(resultsScrollPane, CC.xywh(2, 4, 6, 1));
+			}
+			mainTabPane.addTab(bundle.getString("MainForm.resultsPanel.tab.title"), resultsPanel);
 		}
 		add(mainTabPane, CC.xy(1, 1));
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -195,7 +280,7 @@ public class MainPanel extends JPanel {
 	private JTabbedPane mainTabPane;
 	private JPanel scanSettingsPanel;
 	private JPanel searchParameterPanel;
-	private JLabel LookForLabel1;
+	private JLabel lookForLabel1;
 	private JCheckBox longFilePathsCheckBox;
 	private JLabel longFilePathsGElabel;
 	private JTextField longFilePathsCharacterThresholdTextField;
@@ -213,16 +298,31 @@ public class MainPanel extends JPanel {
 	private JTextField clumpsOfSmallFilesClumpSizeThresholdTextField;
 	private JLabel clumpsOfSmallFilesSmallFilesLabel;
 	private JPanel programSettingsPanel;
+	private JLabel programSettingsLabel;
+	private JCheckBox repeatScanCheckBox;
+	private JComboBox<String> scanPeriodComboBox;
+	private JLabel atLabel;
+	private JComboBox scanTimeComboBox;
+	private JCheckBox minimizeToSystemTrayCheckBox;
+	private JCheckBox fileFoundPopupNotificationCheckBox;
+	private JCheckBox keepNotificationsOpenUntilCloseClickedCheckBox;
+	private JPanel panel1;
 	private JButton runScanButton;
 	private JButton saveDefaultSettingsButton;
 	private JButton helpButton;
 	private JLabel rootDirectoriesLabel;
 	private JButton addRootDirectoriesButton;
 	private JScrollPane rootDirectoriesScrollPane;
-	private JTextPane rootDirectoriesTextPanel;
+	private JTextPane rootDirectoriesTextPane;
 	private JLabel ignoreDirectoriesLabel;
 	private JButton addIgnoreDirectoriesButton1;
-	private JScrollPane scrollPane1;
-	private JTextPane textPane1;
+	private JScrollPane ignoreDirectoriesScrollPane;
+	private JTextPane ignoreDirectoriesTextPane;
+	private JPanel resultsPanel;
+	private JLabel resultsLabel;
+	private JCheckBox openParentDirectoryCheckBox1;
+	private JButton clearResultsButton1;
+	private JScrollPane resultsScrollPane;
+	private JTextPane resultsTextPane;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
